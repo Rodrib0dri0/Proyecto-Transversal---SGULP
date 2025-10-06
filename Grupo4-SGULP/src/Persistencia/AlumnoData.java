@@ -1,0 +1,75 @@
+package Persistencia;
+import java.util.*;
+import Conexion.Alumno;
+import Conexion.Conexion;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+public class AlumnoData {
+
+    private Connection con;
+
+    public AlumnoData() {
+        Conexion conexion = new Conexion("jdbc:mariadb://localhost:3306/grupo4-sgulp", "root","");
+        con = conexion.buscarconexion();
+    }
+
+    public void agregarAlumno(Alumno alu) {
+        try {
+            String sql = "INSERT INTO alumno(dni, apellido, nombre, fechaNacimiento, estado)"
+                    + "VALUES (?,?,?,?,?)";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, alu.getDni());
+            ps.setString(2, alu.getApellido());
+            ps.setString(3, alu.getNombre());
+            ps.setDate(4, Date.valueOf(alu.getFechaNacimiento()));
+            ps.setBoolean(5, alu.isEstado());
+            int registro = ps.executeUpdate();
+            ps.close();
+            
+            if(registro > 0){
+                JOptionPane.showMessageDialog(null, "Alumno guardado correctamente!");
+            }else{
+                JOptionPane.showMessageDialog(null, "No se pudo guardar al alumno.");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar." + ex);
+        }
+    }
+    public List<Alumno> buscarAlumno(){
+            List<Alumno> mostrar = new ArrayList();
+        try {
+            String sql = "SELECT * FROM alumno";
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ResultSet resultado = ps.executeQuery();
+                while(resultado.next()){
+                    int id = resultado.getInt("idAlumno");
+                    int dni = resultado.getInt("dni");
+                    String apellido = resultado.getString("apellido");
+                    String nombre = resultado.getString("nombre");
+                    Date fecha = resultado.getDate("fechaNacimiento");
+                    boolean estado = resultado.getBoolean("estado");                    
+                    
+                    Alumno alu = new Alumno (nombre, apellido, dni,fecha.toLocalDate(),estado);
+                    alu.setIdAlumno(id);
+                    
+                    mostrar.add(alu);
+                }
+                ps.close();
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Error al buscar." + ex);
+        }
+           return mostrar;     
+    }
+
+}
