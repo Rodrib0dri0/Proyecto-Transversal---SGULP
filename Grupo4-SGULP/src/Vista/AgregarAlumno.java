@@ -104,7 +104,7 @@ public class AgregarAlumno extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(120, 120, 120)
                         .addComponent(jLabel1)))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -26,21 +26,56 @@ public class ListarMaterias extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jBGuardar = new javax.swing.JButton();
+        jBEliminar = new javax.swing.JButton();
+        jBActualizar = new javax.swing.JButton();
+
+        jBGuardar.setText("Guardar");
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGuardarActionPerformed(evt);
+            }
+        });
+
+        jBEliminar.setText("Eliminar");
+
+        jBActualizar.setText("Actualizar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jBGuardar)
+                .addGap(18, 18, 18)
+                .addComponent(jBEliminar)
+                .addGap(18, 18, 18)
+                .addComponent(jBActualizar)
+                .addContainerGap(152, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(450, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBGuardar)
+                    .addComponent(jBEliminar)
+                    .addComponent(jBActualizar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBActualizar;
+    private javax.swing.JButton jBEliminar;
+    private javax.swing.JButton jBGuardar;
     // End of variables declaration//GEN-END:variables
 }
