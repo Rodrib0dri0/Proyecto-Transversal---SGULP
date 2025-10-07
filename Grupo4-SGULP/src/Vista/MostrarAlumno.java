@@ -17,7 +17,7 @@ public class MostrarAlumno extends javax.swing.JInternalFrame {
 
     public MostrarAlumno() {
         AlumnoData alum = new AlumnoData();
-        listaAlumnos = alum.buscarAlumno();
+        listaAlumnos = alum.cargarAlumnos();
         initComponents();
         armarCabecera();
         cargarTabla();

@@ -160,7 +160,7 @@ public class InscripcionMaterias extends javax.swing.JInternalFrame {
     public void cargarLista() {
         AlumnoData ad = new AlumnoData();
         List<Alumno> lista = new ArrayList();
-        lista = ad.buscarAlumno();
+        lista = ad.cargarAlumnos();
 
         for (Alumno a : lista) {
             String nombreCompleto = a.getNombre() + " " + a.getApellido();
