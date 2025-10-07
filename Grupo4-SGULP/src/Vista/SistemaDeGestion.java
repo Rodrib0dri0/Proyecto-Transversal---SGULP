@@ -5,6 +5,7 @@ public class SistemaDeGestion extends javax.swing.JFrame {
 
     public SistemaDeGestion() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -17,6 +18,8 @@ public class SistemaDeGestion extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -24,11 +27,11 @@ public class SistemaDeGestion extends javax.swing.JFrame {
         Escritorio.setLayout(EscritorioLayout);
         EscritorioLayout.setHorizontalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 758, Short.MAX_VALUE)
+            .addGap(0, 1070, Short.MAX_VALUE)
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
+            .addGap(0, 651, Short.MAX_VALUE)
         );
 
         jMenu2.setText("Alumnos");
@@ -54,6 +57,18 @@ public class SistemaDeGestion extends javax.swing.JFrame {
         jMenu3.add(jMenuItem2);
 
         jMenuBar1.add(jMenu3);
+
+        jMenu1.setText("Materias");
+
+        jMenuItem3.setText("Inscripción a materias");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -91,6 +106,16 @@ public class SistemaDeGestion extends javax.swing.JFrame {
         Escritorio.moveToFront(ma);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        InscripcionMaterias im = new InscripcionMaterias();
+        im.setVisible(true);
+        Escritorio.add(im);
+        Escritorio.moveToFront(im);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -125,10 +150,12 @@ public class SistemaDeGestion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     // End of variables declaration//GEN-END:variables
 }
