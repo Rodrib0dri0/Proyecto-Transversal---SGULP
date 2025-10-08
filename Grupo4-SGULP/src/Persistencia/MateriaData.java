@@ -42,7 +42,7 @@ public class MateriaData {
     }
 
     public List<Materia> cargarMaterias() {
-        List<Materia> materias = null;
+        List<Materia> materias = new ArrayList();
         try {
             String sql = "SELECT * FROM materia";
 
@@ -57,8 +57,10 @@ public class MateriaData {
 
                 Materia mat = new Materia(nombre, año, estado);
                 mat.setIdMateria(id);
+                
                 materias.add(mat);
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al cargar." + ex);
         }

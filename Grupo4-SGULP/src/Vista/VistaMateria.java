@@ -1,8 +1,16 @@
 package Vista;
 
+import Conexion.Materia;
+import Persistencia.MateriaData;
 import javax.swing.table.DefaultTableModel;
+import java.util.*;
+import javax.swing.JOptionPane;
 
 public class VistaMateria extends javax.swing.JInternalFrame {
+
+    MateriaData md = new MateriaData();
+
+    List<Materia> listaMaterias = new ArrayList();
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
@@ -14,6 +22,7 @@ public class VistaMateria extends javax.swing.JInternalFrame {
     public VistaMateria() {
         initComponents();
         armarCabecera();
+        cargarTabla();
         jBBuscar.setEnabled(false);
         jBActualizar.setEnabled(false);
         jBEliminar.setEnabled(false);
@@ -31,8 +40,8 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         jCID = new javax.swing.JComboBox<>();
         jTNombre = new javax.swing.JTextField();
         jTAño = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jRActivo = new javax.swing.JRadioButton();
+        jRInactivo = new javax.swing.JRadioButton();
         jBGuardar = new javax.swing.JButton();
         jBLimpiar1 = new javax.swing.JButton();
         jBActualizar = new javax.swing.JButton();
@@ -62,11 +71,11 @@ public class VistaMateria extends javax.swing.JInternalFrame {
             }
         });
 
-        GrupoEstado.add(jRadioButton1);
-        jRadioButton1.setText("Activo");
+        GrupoEstado.add(jRActivo);
+        jRActivo.setText("Activo");
 
-        GrupoEstado.add(jRadioButton2);
-        jRadioButton2.setText("Inactivo");
+        GrupoEstado.add(jRInactivo);
+        jRInactivo.setText("Inactivo");
 
         jBGuardar.setText("Guardar");
         jBGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +159,7 @@ public class VistaMateria extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                             .addGap(18, 18, 18)
-                                            .addComponent(jRadioButton1))
+                                            .addComponent(jRActivo))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jTAño, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -166,7 +175,7 @@ public class VistaMateria extends javax.swing.JInternalFrame {
                             .addComponent(jBLimpiar1)
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jRadioButton2)
+                                .addComponent(jRInactivo)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jBActualizar)
                                     .addGap(18, 18, 18)
@@ -232,8 +241,8 @@ public class VistaMateria extends javax.swing.JInternalFrame {
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2))
+                            .addComponent(jRActivo)
+                            .addComponent(jRInactivo))
                         .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBGuardar)
@@ -248,14 +257,41 @@ public class VistaMateria extends javax.swing.JInternalFrame {
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
+        try{
+        if (jTNombre.getText().isEmpty() || jTAño.getText().isEmpty() || (!jRActivo.isSelected() && !jRInactivo.isSelected())) {
+            JOptionPane.showMessageDialog(null, "No deben quedar campos vacios.");
+        }
+        
+        String nombre = jTNombre.getText();
+        int año = Integer.parseInt(jTAño.getText());
+        
+        boolean estado;
+        if (jRActivo.isSelected()) {
+                estado = true;
+            } else {
+                estado = false;
+            }
+        
+        Materia mat = new Materia(nombre,año,estado);
+        
+        md.insertarMateria(mat);
+        
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "El año debe ser un número valido.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar.");
+        }
+        cargarTabla();
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
         // TODO add your handling code here:
+        cargarTabla();
     }//GEN-LAST:event_jBActualizarActionPerformed
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
         // TODO add your handling code here:
+        cargarTabla();
     }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
@@ -298,8 +334,8 @@ public class VistaMateria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRActivo;
+    private javax.swing.JRadioButton jRInactivo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -315,5 +351,15 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         modelo.addColumn("Año");
         modelo.addColumn("Estado");
         jTTable.setModel(modelo);
+    }
+
+    public void cargarTabla() {
+        modelo.setRowCount(0);
+
+        listaMaterias = md.cargarMaterias();
+
+        for (Materia m : listaMaterias) {
+            modelo.addRow(new Object[]{m.getIdMateria(), m.getNombre(), m.getAño(), m.isEstado()});
+        }
     }
 }
