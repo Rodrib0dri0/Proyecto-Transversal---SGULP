@@ -5,7 +5,7 @@ import Conexion.Alumno;
 import Persistencia.AlumnoData;
 import javax.swing.table.DefaultTableModel;
 
-public class InscripcionMaterias extends javax.swing.JInternalFrame {
+public class VistaInscripcion extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel(){
         @Override
@@ -14,7 +14,7 @@ public class InscripcionMaterias extends javax.swing.JInternalFrame {
         }
     };
     
-    public InscripcionMaterias() {
+    public VistaInscripcion() {
         initComponents();
         cargarLista();
         armarCabecera();

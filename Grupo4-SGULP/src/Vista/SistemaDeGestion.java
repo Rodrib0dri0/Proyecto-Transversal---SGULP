@@ -11,14 +11,21 @@ public class SistemaDeGestion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
         Escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+
+        jMenu3.setText("File");
+        jMenuBar2.add(jMenu3);
+
+        jMenu4.setText("Edit");
+        jMenuBar2.add(jMenu4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,16 +52,9 @@ public class SistemaDeGestion extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Mostrar");
-
-        jMenuItem2.setText("Mostrar alumnos");
-        jMenu3.add(jMenuItem2);
-
-        jMenuBar1.add(jMenu3);
-
         jMenu1.setText("Materias");
 
-        jMenuItem3.setText("Inscripción a materias");
+        jMenuItem3.setText("Gestión Materias");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -95,10 +95,11 @@ public class SistemaDeGestion extends javax.swing.JFrame {
         // TODO add your handling code here:
         Escritorio.removeAll();
         Escritorio.repaint();
-        InscripcionMaterias im = new InscripcionMaterias();
-        im.setVisible(true);
-        Escritorio.add(im);
-        Escritorio.moveToFront(im);
+        VistaMateria vm = new VistaMateria();
+        vm.setVisible(true);
+        vm.setSize(vm.getWidth(), vm.getHeight());
+        Escritorio.add(vm);
+        Escritorio.moveToFront(vm);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     public static void main(String args[]) {
@@ -138,9 +139,10 @@ public class SistemaDeGestion extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     // End of variables declaration//GEN-END:variables
 }
