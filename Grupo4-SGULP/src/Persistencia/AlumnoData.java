@@ -146,7 +146,7 @@ public class AlumnoData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al buscar." + ex);
+            JOptionPane.showMessageDialog(null, "Error al cargar." + ex);
         }
         return mostrar;
     }

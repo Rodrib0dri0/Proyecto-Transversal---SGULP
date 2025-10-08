@@ -4,10 +4,12 @@ import Conexion.Conexion;
 import Conexion.Materia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.util.*;
 
 public class MateriaData {
 
@@ -37,5 +39,29 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null, "Error al guardar." + ex);
         }
 
+    }
+
+    public List<Materia> cargarMaterias() {
+        List<Materia> materias = null;
+        try {
+            String sql = "SELECT * FROM materia";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet resultado = ps.executeQuery();
+            while (resultado.next()) {
+                int id = resultado.getInt("idMateria");
+                String nombre = resultado.getString("nombre");
+                int año = resultado.getInt("año");
+                boolean estado = resultado.getBoolean("estado");
+
+                Materia mat = new Materia(nombre, año, estado);
+                mat.setIdMateria(id);
+                materias.add(mat);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar." + ex);
+        }
+        return materias;
     }
 }
