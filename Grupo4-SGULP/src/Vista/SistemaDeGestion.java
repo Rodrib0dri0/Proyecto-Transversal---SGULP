@@ -1,4 +1,3 @@
-
 package Vista;
 
 public class SistemaDeGestion extends javax.swing.JFrame {
@@ -27,11 +26,11 @@ public class SistemaDeGestion extends javax.swing.JFrame {
         Escritorio.setLayout(EscritorioLayout);
         EscritorioLayout.setHorizontalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1070, Short.MAX_VALUE)
+            .addGap(0, 1294, Short.MAX_VALUE)
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 651, Short.MAX_VALUE)
+            .addGap(0, 698, Short.MAX_VALUE)
         );
 
         jMenu2.setText("Alumnos");
@@ -49,11 +48,6 @@ public class SistemaDeGestion extends javax.swing.JFrame {
         jMenu3.setText("Mostrar");
 
         jMenuItem2.setText("Mostrar alumnos");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
         jMenu3.add(jMenuItem2);
 
         jMenuBar1.add(jMenu3);
@@ -90,21 +84,12 @@ public class SistemaDeGestion extends javax.swing.JFrame {
         // TODO add your handling code here:
         Escritorio.removeAll();
         Escritorio.repaint();
-        AgregarAlumno ag = new AgregarAlumno();
+        VistaAlumno ag = new VistaAlumno();
+        ag.setSize(ag.getWidth(), ag.getHeight());
         ag.setVisible(true);
         Escritorio.add(ag);
         Escritorio.moveToFront(ag);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        Escritorio.removeAll();
-        Escritorio.repaint();
-        MostrarAlumno ma = new MostrarAlumno();
-        ma.setVisible(true);
-        Escritorio.add(ma);
-        Escritorio.moveToFront(ma);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:

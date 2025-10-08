@@ -46,6 +46,26 @@ public class AlumnoData {
             JOptionPane.showMessageDialog(null, "Error al guardar." + ex);
         }
     }
+    
+    public void eliminarAlumno(Alumno aluEliminar){
+        try {
+            String sql ="DELETE FROM alumno WHERE idAlumno= ?";
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, aluEliminar.getIdAlumno());
+            int registro = ps.executeUpdate();
+            ps.close();
+            
+            if (registro > 0) {
+                JOptionPane.showMessageDialog(null, "Alumno eliminado correctamente!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar al alumno.");
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar. " + ex);
+        }
+    }
 
     public void actualizarAlumno(Alumno aluActualizado) {
         try {
