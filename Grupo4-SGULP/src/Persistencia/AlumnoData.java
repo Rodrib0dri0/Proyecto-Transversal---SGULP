@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 public class AlumnoData {
 
     private Connection con;
+    private AlumnoData alumno;
 
     public AlumnoData() {
         Conexion conexion = new Conexion("jdbc:mariadb://localhost:3306/grupo4-sgulp", "root", "");
@@ -44,6 +45,33 @@ public class AlumnoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar." + ex);
         }
+    }
+
+    public void actualizarAlumno(Alumno aluActualizado) {
+        try {
+            String sql = "UPDATE alumno SET dni= ?,apellido= ?,nombre= ?,fechaNacimiento= ?,estado= ? WHERE idAlumno = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, aluActualizado.getDni());
+            ps.setString(2, aluActualizado.getApellido());
+            ps.setString(3, aluActualizado.getNombre());
+            ps.setDate(4, Date.valueOf(aluActualizado.getFechaNacimiento()));
+            ps.setBoolean(5, aluActualizado.isEstado());
+            int id = aluActualizado.getIdAlumno();
+            ps.setInt(6, id);
+            int registro = ps.executeUpdate();
+            ps.close();
+
+            if (registro > 0) {
+                JOptionPane.showMessageDialog(null, "Alumno actualizado correctamente!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar al alumno.");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar. " + ex);
+        }
+
     }
 
     public Alumno buscarAlumno(int id) {

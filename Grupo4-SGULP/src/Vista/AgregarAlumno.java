@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 
 public class AgregarAlumno extends javax.swing.JInternalFrame {
 
+    AlumnoData ad = new AlumnoData();
+
     public AgregarAlumno() {
         initComponents();
         cargarID();
@@ -40,6 +42,7 @@ public class AgregarAlumno extends javax.swing.JInternalFrame {
         jCID = new javax.swing.JComboBox<>();
         jBLimpiar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jBActualizar = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -99,6 +102,13 @@ public class AgregarAlumno extends javax.swing.JInternalFrame {
 
         jButton2.setText("Eliminar");
 
+        jBActualizar.setText("Actualizar");
+        jBActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,20 +128,12 @@ public class AgregarAlumno extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jBBuscar))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(55, 55, 55)
+                                .addGap(65, 65, 65)
                                 .addComponent(jRActivo)
-                                .addGap(40, 40, 40)
+                                .addGap(48, 48, 48)
                                 .addComponent(jRInactivo)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jBGuardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBLimpiar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addComponent(jBSalir))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(11, 11, 11))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -151,8 +153,19 @@ public class AgregarAlumno extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(120, 120, 120)
                                 .addComponent(jLabel1)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(17, 17, 17))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jBGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBLimpiar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBActualizar)
+                        .addGap(12, 12, 12)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBSalir)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +204,8 @@ public class AgregarAlumno extends javax.swing.JInternalFrame {
                     .addComponent(jBGuardar)
                     .addComponent(jBSalir)
                     .addComponent(jBLimpiar)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jBActualizar))
                 .addContainerGap())
         );
 
@@ -205,67 +219,67 @@ public class AgregarAlumno extends javax.swing.JInternalFrame {
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
-        try{
-        if (jTDni.getText().isEmpty() || jTApellido.getText().isEmpty() || jTNombre.getText().isEmpty() || jDFecha.getDate() == null || (!jRActivo.isSelected() && !jRInactivo.isSelected())) {
-            JOptionPane.showMessageDialog(null, "No deben quedar campos vacios.");
-            return;
-        }
-        
-        int dni = Integer.parseInt(jTDni.getText());
-        String apellido = jTApellido.getText();
-        String nombre = jTNombre.getText();
-        String fechaString= jDFecha.toString();
-        java.util.Date fecha = jDFecha.getDate();
-        java.sql.Date fechanac = new java.sql.Date(fecha.getTime());
-        
-        boolean estado;
-        
-        if(jRActivo.isSelected()){
-            estado = true;
-        }else{
-            estado = false;
-        }
-        
-        Alumno alu = new Alumno(nombre,apellido,dni,fechanac.toLocalDate(),estado);
-        
-        AlumnoData ad = new AlumnoData();
-        
-        ad.agregarAlumno(alu);
-        
-        }catch (NumberFormatException ex){
+        try {
+            if (jTDni.getText().isEmpty() || jTApellido.getText().isEmpty() || jTNombre.getText().isEmpty() || jDFecha.getDate() == null || (!jRActivo.isSelected() && !jRInactivo.isSelected())) {
+                JOptionPane.showMessageDialog(null, "No deben quedar campos vacios.");
+                return;
+            }
+
+            int dni = Integer.parseInt(jTDni.getText());
+            String apellido = jTApellido.getText();
+            String nombre = jTNombre.getText();
+            String fechaString = jDFecha.toString();
+            java.util.Date fecha = jDFecha.getDate();
+            java.sql.Date fechanac = new java.sql.Date(fecha.getTime());
+
+            boolean estado;
+
+            if (jRActivo.isSelected()) {
+                estado = true;
+            } else {
+                estado = false;
+            }
+
+            Alumno alu = new Alumno(nombre, apellido, dni, fechanac.toLocalDate(), estado);
+
+            ad.agregarAlumno(alu);
+
+        } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "El dni debe ser un número valido.");
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Tiene que seleccionar una fecha valida.");
-        }catch (Exception ex){
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar.");
         }
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jCIDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCIDItemStateChanged
         // TODO add your handling code here:
-        if(jCID.getSelectedItem().toString().trim().isEmpty()){
+        if (jCID.getSelectedItem().toString().trim().isEmpty()) {
             jBBuscar.setEnabled(false);
-        }else{
+            jBActualizar.setEnabled(false);
+        } else {
             jBBuscar.setEnabled(true);
+            jBActualizar.setEnabled(true);
         }
-        
+
     }//GEN-LAST:event_jCIDItemStateChanged
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         // TODO add your handling code here:
         AlumnoData ad = new AlumnoData();
         int id = Integer.parseInt(jCID.getSelectedItem().toString());
-        
+
         Alumno alu = ad.buscarAlumno(id);
-        
+
         jTDni.setText(String.valueOf(alu.getDni()));
         jTApellido.setText(alu.getApellido());
         jTNombre.setText(alu.getNombre());
         Date fecha = java.sql.Date.valueOf(alu.getFechaNacimiento());
         jDFecha.setDate(fecha);
-        if(alu.isEstado()){
+        if (alu.isEstado()) {
             jRActivo.setSelected(true);
-        }else{
+        } else {
             jRInactivo.setSelected(true);
         }
     }//GEN-LAST:event_jBBuscarActionPerformed
@@ -275,9 +289,48 @@ public class AgregarAlumno extends javax.swing.JInternalFrame {
         limpiar();
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
+    private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (jTDni.getText().isEmpty() || jTApellido.getText().isEmpty() || jTNombre.getText().isEmpty() || jDFecha.getDate() == null || (!jRActivo.isSelected() && !jRInactivo.isSelected())) {
+                JOptionPane.showMessageDialog(null, "No deben quedar campos vacios.");
+                return;
+            }
+            
+            int idalumno = Integer.parseInt(jCID.getSelectedItem().toString());
+            int dni = Integer.parseInt(jTDni.getText());
+            String apellido = jTApellido.getText();
+            String nombre = jTNombre.getText();
+            String fechaString = jDFecha.toString();
+            java.util.Date fecha = jDFecha.getDate();
+            java.sql.Date fechanac = new java.sql.Date(fecha.getTime());
+
+            boolean estado;
+
+            if (jRActivo.isSelected()) {
+                estado = true;
+            } else {
+                estado = false;
+            }
+
+            Alumno aluActualizado = new Alumno(nombre, apellido, dni, fechanac.toLocalDate(), estado);
+            aluActualizado.setIdAlumno(idalumno);
+            
+            ad.actualizarAlumno(aluActualizado);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "El dni debe ser un número valido/unico.");
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Tiene que seleccionar una fecha valida.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar.");
+        }
+    }//GEN-LAST:event_jBActualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonEstado;
+    private javax.swing.JButton jBActualizar;
     private javax.swing.JButton jBBuscar;
     private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBLimpiar;
@@ -300,7 +353,7 @@ public class AgregarAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    public void limpiar(){
+    public void limpiar() {
         jTDni.setText("");
         jTNombre.setText("");
         jTApellido.setText("");
@@ -308,13 +361,12 @@ public class AgregarAlumno extends javax.swing.JInternalFrame {
         jCID.setSelectedIndex(0);
         buttonEstado.clearSelection();
     }
-    
-    public void cargarID(){
+
+    public void cargarID() {
         AlumnoData ad = new AlumnoData();
         List<Alumno> lista = new ArrayList();
         lista = ad.cargarAlumnos();
 
-        
         for (Alumno a : lista) {
             String idString = String.valueOf(a.getIdAlumno());
             jCID.addItem(idString);
