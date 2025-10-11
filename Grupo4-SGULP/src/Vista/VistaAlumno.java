@@ -378,31 +378,30 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
         try {
             if (jTDni.getText().isEmpty() || jTApellido.getText().isEmpty() || jTNombre.getText().isEmpty() || jDFecha.getDate() == null || (!jRActivo.isSelected() && !jRInactivo.isSelected())) {
                 JOptionPane.showMessageDialog(null, "No deben quedar campos vacios.");
-                return;
-            }
-
-            int idalumno = Integer.parseInt(jCID.getSelectedItem().toString());
-            int dni = Integer.parseInt(jTDni.getText());
-            String apellido = jTApellido.getText();
-            String nombre = jTNombre.getText();
-            String fechaString = jDFecha.toString();
-            java.util.Date fecha = jDFecha.getDate();
-            java.sql.Date fechanac = new java.sql.Date(fecha.getTime());
-
-            boolean estado;
-
-            if (jRActivo.isSelected()) {
-                estado = true;
             } else {
-                estado = false;
+
+                int idalumno = Integer.parseInt(jCID.getSelectedItem().toString());
+                int dni = Integer.parseInt(jTDni.getText());
+                String apellido = jTApellido.getText();
+                String nombre = jTNombre.getText();
+                String fechaString = jDFecha.toString();
+                java.util.Date fecha = jDFecha.getDate();
+                java.sql.Date fechanac = new java.sql.Date(fecha.getTime());
+
+                boolean estado;
+
+                if (jRActivo.isSelected()) {
+                    estado = true;
+                } else {
+                    estado = false;
+                }
+
+                Alumno aluActualizado = new Alumno(nombre, apellido, dni, fechanac.toLocalDate(), estado);
+                aluActualizado.setIdAlumno(idalumno);
+
+                ad.actualizarAlumno(aluActualizado);
+                cargarTabla();
             }
-
-            Alumno aluActualizado = new Alumno(nombre, apellido, dni, fechanac.toLocalDate(), estado);
-            aluActualizado.setIdAlumno(idalumno);
-
-            ad.actualizarAlumno(aluActualizado);
-            cargarTabla();
-
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "El dni debe ser un número valido/unico.");
         } catch (NullPointerException ex) {
@@ -493,7 +492,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
 
     public void cargarTabla() {
         modelo.setRowCount(0);
-        
+
         listaAlumnos = ad.cargarAlumnos();
 
         for (Alumno a : listaAlumnos) {

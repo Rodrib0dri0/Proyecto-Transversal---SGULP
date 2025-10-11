@@ -293,8 +293,32 @@ public class VistaMateria extends javax.swing.JInternalFrame {
 
     private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
         // TODO add your handling code here:
+        try {
+            if (jTNombre.getText().isEmpty() || jTAño.getText().isEmpty() || (!jRActivo.isSelected() && !jRInactivo.isSelected())) {
+                JOptionPane.showMessageDialog(null, "No deben quedar campos vacios.");
+            } else {
+
+                int id = Integer.parseInt(jCID.getSelectedItem().toString());
+                String nombre = jTNombre.getText();
+                int año = Integer.parseInt(jTAño.getText());
+                boolean estado;
+                if (jRActivo.isSelected()) {
+                    estado = true;
+                } else {
+                    estado = false;
+                }
+
+                Materia matActualizada = new Materia(nombre, año, estado);
+                matActualizada.setIdMateria(id);
+                md.actualizarMateria(matActualizada);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "El año debe ser un número valido.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar.");
+        }
         cargarTabla();
-        
+
     }//GEN-LAST:event_jBActualizarActionPerformed
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
