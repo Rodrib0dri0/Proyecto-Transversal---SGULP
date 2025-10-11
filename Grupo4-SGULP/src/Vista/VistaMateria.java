@@ -23,6 +23,7 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         initComponents();
         armarCabecera();
         cargarTabla();
+        cargarID();
         jBBuscar.setEnabled(false);
         jBActualizar.setEnabled(false);
         jBEliminar.setEnabled(false);
@@ -85,6 +86,11 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         });
 
         jBLimpiar1.setText("Limpiar");
+        jBLimpiar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpiar1ActionPerformed(evt);
+            }
+        });
 
         jBActualizar.setText("Actualizar");
         jBActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -187,22 +193,22 @@ public class VistaMateria extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(24, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(211, 211, 211)
-                        .addComponent(jLabel5)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator3)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jBSalir)))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator3))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBSalir)))
-                        .addContainerGap())))
+                                .addGap(48, 48, 48)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(211, 211, 211)
+                                .addComponent(jLabel5)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,45 +263,76 @@ public class VistaMateria extends javax.swing.JInternalFrame {
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
-        try{
-        if (jTNombre.getText().isEmpty() || jTAño.getText().isEmpty() || (!jRActivo.isSelected() && !jRInactivo.isSelected())) {
-            JOptionPane.showMessageDialog(null, "No deben quedar campos vacios.");
-        }
-        
-        String nombre = jTNombre.getText();
-        int año = Integer.parseInt(jTAño.getText());
-        
-        boolean estado;
-        if (jRActivo.isSelected()) {
-                estado = true;
+        try {
+            if (jTNombre.getText().isEmpty() || jTAño.getText().isEmpty() || (!jRActivo.isSelected() && !jRInactivo.isSelected())) {
+                JOptionPane.showMessageDialog(null, "No deben quedar campos vacios.");
             } else {
-                estado = false;
+
+                String nombre = jTNombre.getText();
+                int año = Integer.parseInt(jTAño.getText());
+
+                boolean estado;
+                if (jRActivo.isSelected()) {
+                    estado = true;
+                } else {
+                    estado = false;
+                }
+
+                Materia mat = new Materia(nombre, año, estado);
+
+                md.insertarMateria(mat);
             }
-        
-        Materia mat = new Materia(nombre,año,estado);
-        
-        md.insertarMateria(mat);
-        
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "El año debe ser un número valido.");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar.");
         }
         cargarTabla();
+        cargarID();
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
         // TODO add your handling code here:
         cargarTabla();
+        
     }//GEN-LAST:event_jBActualizarActionPerformed
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
         // TODO add your handling code here:
-        cargarTabla();
+        try {
+            int materiaId = Integer.parseInt(jCID.getSelectedItem().toString());
+
+            md.eliminarMateria(materiaId);
+
+            cargarTabla();
+            limpiar();
+            cargarID();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar.");
+        }
     }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         // TODO add your handling code here:
+        try {
+            int materiaId = Integer.parseInt(jCID.getSelectedItem().toString());
+
+            Materia materia = md.buscarMateria(materiaId);
+
+            if (materia != null) {
+                jTNombre.setText(materia.getNombre());
+                jTAño.setText(String.valueOf(materia.getAño()));
+                if (materia.isEstado()) {
+                    jRActivo.setSelected(true);
+                } else {
+                    jRInactivo.setSelected(true);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Materia no encontrada.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al Buscar.");
+        }
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
@@ -317,6 +354,11 @@ public class VistaMateria extends javax.swing.JInternalFrame {
             jBGuardar.setEnabled(false);
         }
     }//GEN-LAST:event_jCIDItemStateChanged
+
+    private void jBLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiar1ActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_jBLimpiar1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -353,6 +395,19 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         jTTable.setModel(modelo);
     }
 
+    public void cargarID() {
+        jCID.removeAllItems();
+        jCID.addItem("");
+
+        List<Materia> lista = new ArrayList();
+        lista = md.cargarMaterias();
+
+        for (Materia m : lista) {
+            String idString = String.valueOf(m.getIdMateria());
+            jCID.addItem(idString);
+        }
+    }
+
     public void cargarTabla() {
         modelo.setRowCount(0);
 
@@ -361,5 +416,12 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         for (Materia m : listaMaterias) {
             modelo.addRow(new Object[]{m.getIdMateria(), m.getNombre(), m.getAño(), m.isEstado()});
         }
+    }
+
+    public void limpiar() {
+        jTNombre.setText("");
+        jTAño.setText("");
+        jCID.setSelectedIndex(0);
+        GrupoEstado.clearSelection();
     }
 }

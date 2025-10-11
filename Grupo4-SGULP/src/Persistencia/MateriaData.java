@@ -42,18 +42,12 @@ public class MateriaData {
 
     }
     
-   public void eliminarMateria(Materia matEliminar){
+   public void eliminarMateria(int matEliminar){
         try {
             String sql ="DELETE FROM materia WHERE idMateria= ?";
-            //creamos el objeto ps que contiene la sentencia eniada al motor de BD con el placeholder 
-            
             PreparedStatement ps = con.prepareStatement(sql);
             
-            //reemplaza el unico placeholder que tenemos con el alor extraido de la materia a eliminar 
-            
-            ps.setInt(1, matEliminar.getIdMateria());
-            
-            //enia la sentencia con el alor de id, enia al motor BD, que ejecuta la sentencia y nos deuele la cant de filas afectadas
+            ps.setInt(1, matEliminar);
             
             int registro = ps.executeUpdate();
             ps.close();
@@ -95,8 +89,7 @@ public class MateriaData {
     }
     
     public Materia buscarMateria(int id) {
-        
-        // creamos una materia y la inicializamos en null, para luego setearle los alores
+
         Materia mat = null;
         try {
             String sql = "SELECT * FROM materia WHERE idMateria = ?;";
@@ -104,7 +97,6 @@ public class MateriaData {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
 
-            // al usar un SELECT , debemos hacer uso del metodo executeQuery 
             ResultSet resultado = ps.executeQuery();
 
             while (resultado.next()) {
@@ -122,7 +114,6 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null, "Error al buscar la materia." + ex);
         }
         
-        // nos deuele mat con todos sus atributos 
         return mat;
     }
 
