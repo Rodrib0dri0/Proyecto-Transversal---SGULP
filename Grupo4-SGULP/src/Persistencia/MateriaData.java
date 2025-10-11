@@ -38,8 +38,94 @@ public class MateriaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar." + ex);
         }
+        
 
     }
+    
+   public void eliminarMateria(Materia matEliminar){
+        try {
+            String sql ="DELETE FROM materia WHERE idMateria= ?";
+            //creamos el objeto ps que contiene la sentencia eniada al motor de BD con el placeholder 
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            //reemplaza el unico placeholder que tenemos con el alor extraido de la materia a eliminar 
+            
+            ps.setInt(1, matEliminar.getIdMateria());
+            
+            //enia la sentencia con el alor de id, enia al motor BD, que ejecuta la sentencia y nos deuele la cant de filas afectadas
+            
+            int registro = ps.executeUpdate();
+            ps.close();
+            
+            if (registro > 0) {
+                JOptionPane.showMessageDialog(null, "Materia eliminada ");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar la materia.");
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar. " + ex);
+        }
+    } 
+    public void actualizarMateria(Materia matActualizada) {
+        try {
+            String sql = "UPDATE materia SET nombre= ?,año= ?,estado= ? WHERE idMateria = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+          
+            ps.setString(1, matActualizada.getNombre());
+            ps.setInt(2, matActualizada.getAño());
+            ps.setBoolean(3, matActualizada.isEstado());
+            int id = matActualizada.getIdMateria();
+            ps.setInt(4, id);
+            int registro = ps.executeUpdate();
+            ps.close();
+
+            if (registro > 0) {
+                JOptionPane.showMessageDialog(null, "Materia actualizada ");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar ");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar. " + ex);
+        }
+
+    }
+    
+    public Materia buscarMateria(int id) {
+        
+        // creamos una materia y la inicializamos en null, para luego setearle los alores
+        Materia mat = null;
+        try {
+            String sql = "SELECT * FROM materia WHERE idMateria = ?;";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            // al usar un SELECT , debemos hacer uso del metodo executeQuery 
+            ResultSet resultado = ps.executeQuery();
+
+            while (resultado.next()) {
+                int ID = resultado.getInt("idMateria");
+                String nombre = resultado.getString("nombre");
+                int año = resultado.getInt("año");
+                boolean estado = resultado.getBoolean("estado");
+                //seteamos losalores a nuestro obj mat
+                mat = new Materia(nombre, año, estado);
+                mat.setIdMateria(ID);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar la materia." + ex);
+        }
+        
+        // nos deuele mat con todos sus atributos 
+        return mat;
+    }
+
 
     public List<Materia> cargarMaterias() {
         List<Materia> materias = new ArrayList();
