@@ -20,6 +20,8 @@ public class SistemaDeGestion extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -64,6 +66,18 @@ public class SistemaDeGestion extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu5.setText("Inscripción");
+
+        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu5);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -101,6 +115,17 @@ public class SistemaDeGestion extends javax.swing.JFrame {
         Escritorio.add(vm);
         Escritorio.moveToFront(vm);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        VistaInscripcion vi = new VistaInscripcion();
+        vi.setVisible(true);
+        vi.setSize(vi.getWidth(),vi.getHeight());
+        Escritorio.add(vi);
+        Escritorio.moveToFront(vi);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -140,9 +165,11 @@ public class SistemaDeGestion extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     // End of variables declaration//GEN-END:variables
 }

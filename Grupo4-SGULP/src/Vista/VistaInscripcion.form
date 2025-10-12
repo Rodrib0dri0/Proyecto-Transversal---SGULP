@@ -41,13 +41,13 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jCAlumno" min="-2" pref="153" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                      <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRIns" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRNoins" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                      <Component id="jBIncribir" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBInscribir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       <Component id="jBAnular" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
@@ -55,6 +55,13 @@
                   </Group>
               </Group>
               <EmptySpace pref="41" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jTAño" min="-2" pref="98" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -67,14 +74,19 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jCAlumno" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jRIns" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jRNoins" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="383" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTAño" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jBIncribir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBInscribir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBAnular" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBSalir" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -119,11 +131,14 @@
           <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jCAlumnoItemStateChanged"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+    <Component class="javax.swing.JRadioButton" name="jRIns">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="bGInscripcion"/>
@@ -131,21 +146,27 @@
         <Property name="text" type="java.lang.String" value="Inscriptas"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRInsActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+    <Component class="javax.swing.JRadioButton" name="jRNoins">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="bGInscripcion"/>
         </Property>
         <Property name="text" type="java.lang.String" value="No inscriptas"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRNoinsActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jBIncribir">
+    <Component class="javax.swing.JButton" name="jBInscribir">
       <Properties>
         <Property name="text" type="java.lang.String" value="Inscribir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBInscribirActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBAnular">
       <Properties>
@@ -166,6 +187,13 @@
           <Font name="Segoe UI" size="24" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Inscripci&#xf3;n a Materias"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTA&#xf1;o">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="A&#xf1;o de cursada:"/>
       </Properties>
     </Component>
   </SubComponents>

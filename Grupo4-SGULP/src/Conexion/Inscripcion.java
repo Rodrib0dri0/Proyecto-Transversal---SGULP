@@ -8,8 +8,7 @@ public class Inscripcion {
     private Materia materia;
     private int añoCursada;
 
-    public Inscripcion(double nota, Alumno alumno, Materia materia, int añoCursada) {
-        this.nota = nota;
+    public Inscripcion(Alumno alumno, Materia materia, int año) {
         this.alumno = alumno;
         this.materia = materia;
         this.añoCursada = añoCursada;
