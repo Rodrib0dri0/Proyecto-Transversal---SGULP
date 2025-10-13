@@ -24,7 +24,7 @@ public class InscripcionData {
 
     public void Inscribir(Inscripcion ins) {
         try {
-            String sql = "INSERT INTO inscripcion(idAlumno, idMateria, anioCursada) VALUES (?,?,?)";
+            String sql = "INSERT INTO inscripcion(idAlumno, idMateria, añoCursada) VALUES (?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, ins.getAlumno().getIdAlumno());
@@ -40,6 +40,24 @@ public class InscripcionData {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al inscribir.");
+        }
+    }
+
+    public void anular(int eli) {
+        try {
+            String sql = "DELETE FROM inscripcion WHERE idMateria = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, eli);
+
+            int registro = ps.executeUpdate();
+            if (registro > 0) {
+                JOptionPane.showMessageDialog(null, "Inscripción anulada correctamente!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo anular la inscripción.");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al anular. " + ex);
         }
     }
 

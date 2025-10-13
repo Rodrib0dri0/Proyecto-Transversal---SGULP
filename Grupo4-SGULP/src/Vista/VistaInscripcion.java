@@ -96,6 +96,11 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         });
 
         jBAnular.setText("Anular inscripción");
+        jBAnular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAnularActionPerformed(evt);
+            }
+        });
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -205,6 +210,12 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         mostrarMaterias();
     }//GEN-LAST:event_jCAlumnoItemStateChanged
 
+    private void jBAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAnularActionPerformed
+        // TODO add your handling code here:
+        anularInscri();
+        mostrarMaterias();
+    }//GEN-LAST:event_jBAnularActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bGInscripcion;
@@ -232,6 +243,15 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         }
     }
 
+    public void anularInscri(){
+        
+        int fila = jTTabla.getSelectedRow();
+        
+        int id = Integer.parseInt(jTTabla.getValueAt(fila, 0).toString());
+        
+        insD.anular(id);
+        
+    }
     public void inscribir() {
         if (jTAño.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe ingresar año.");
@@ -244,7 +264,7 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
                 String nombreAlu = jCAlumno.getSelectedItem().toString();
                 Alumno alumno = buscarAlumno(nombreAlu);
                 
-                int año = Integer.parseInt(jTAño.getText().toString());
+                int año = Integer.parseInt(jTAño.getText());
 
                 Inscripcion ins = new Inscripcion(alumno, mate, año);
 

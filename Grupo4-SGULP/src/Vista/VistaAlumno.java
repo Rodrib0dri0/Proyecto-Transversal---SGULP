@@ -306,7 +306,6 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
             int dni = Integer.parseInt(jTDni.getText());
             String apellido = jTApellido.getText();
             String nombre = jTNombre.getText();
-            String fechaString = jDFecha.toString();
             java.util.Date fecha = jDFecha.getDate();
             java.sql.Date fechanac = new java.sql.Date(fecha.getTime());
 
