@@ -119,4 +119,68 @@ public class InscripcionData {
         }
         return mates;
     }
+    
+    public List<Inscripcion> cargarInscripciones(){
+        List<Inscripcion> lista = new ArrayList();
+        MateriaData md = new MateriaData();
+        AlumnoData ad = new AlumnoData();
+        try {
+            
+            
+            String sql = "SELECT * FROM inscripcion";
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+            int id = rs.getInt("idInscripto");
+            int idMate = rs.getInt("idMateria");
+            Materia mate = md.buscarMateria(idMate);
+            int idAlu = rs.getInt("idAlumno");
+            Alumno alu = ad.buscarAlumno(idAlu);
+            int año = rs.getInt("añoCursada");
+            
+            Inscripcion ins = new Inscripcion(alu,mate,año);
+            ins.setIdInscripto(id);
+            lista.add(ins);
+        }
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "Error al cargar.");
+        }
+        return lista;
+    }
+    
+    public List<Inscripcion> cargarInscripcionesDeAlumno(int idA){
+        List<Inscripcion> lista = new ArrayList();
+        MateriaData md = new MateriaData();
+        AlumnoData ad = new AlumnoData();
+        try {
+            
+            
+            String sql = "SELECT * FROM inscripcion WHERE idAlumno = ?";
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, idA);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+            int id = rs.getInt("idInscripto");
+            int idMate = rs.getInt("idMateria");
+            Materia mate = md.buscarMateria(idMate);
+            int idAlu = rs.getInt("idAlumno");
+            Alumno alu = ad.buscarAlumno(idAlu);
+            int año = rs.getInt("añoCursada");
+            
+            Inscripcion ins = new Inscripcion(alu,mate,año);
+            ins.setIdInscripto(id);
+            lista.add(ins);
+        }
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "Error al cargar.");
+        }
+        return lista;
+    }
 }
