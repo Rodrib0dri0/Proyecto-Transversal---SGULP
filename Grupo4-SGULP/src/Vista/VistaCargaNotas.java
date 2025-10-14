@@ -62,11 +62,6 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTTable.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTTableKeyTyped(evt);
-            }
-        });
         jScrollPane2.setViewportView(jTTable);
 
         jCMateria.addItemListener(new java.awt.event.ItemListener() {
@@ -121,11 +116,6 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         cargarTabla();
     }//GEN-LAST:event_jCMateriaItemStateChanged
-
-    private void jTTableKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTableKeyTyped
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Sepa");
-    }//GEN-LAST:event_jTTableKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

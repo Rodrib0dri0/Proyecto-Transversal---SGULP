@@ -112,9 +112,6 @@
               </Table>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTTableKeyTyped"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
