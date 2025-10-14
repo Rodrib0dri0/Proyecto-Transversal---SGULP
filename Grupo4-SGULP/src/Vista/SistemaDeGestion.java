@@ -22,8 +22,8 @@ public class SistemaDeGestion extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -78,6 +78,14 @@ public class SistemaDeGestion extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuItem2);
 
+        jMenuItem5.setText("Carga de Notas");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem5);
+
         jMenuItem4.setText("Listado de inscripciones ");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,9 +93,6 @@ public class SistemaDeGestion extends javax.swing.JFrame {
             }
         });
         jMenu5.add(jMenuItem4);
-
-        jMenuItem5.setText("jMenuItem5");
-        jMenu5.add(jMenuItem5);
 
         jMenuBar1.add(jMenu5);
 
@@ -150,6 +155,17 @@ public class SistemaDeGestion extends javax.swing.JFrame {
         Escritorio.add(vli);
         Escritorio.moveToFront(vli);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        VistaCargaNotas vcn = new VistaCargaNotas();
+        vcn.setVisible(true);
+        vcn.setSize(vcn.getWidth(),vcn.getHeight());
+        Escritorio.add(vcn);
+        Escritorio.moveToFront(vcn);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

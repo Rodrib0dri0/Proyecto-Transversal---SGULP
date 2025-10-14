@@ -120,16 +120,17 @@ public class InscripcionData {
         return mates;
     }
     
-    public List<Inscripcion> cargarInscripciones(){
+    public List<Inscripcion> cargarInscripcionesDeMateria(int idMateria){
         List<Inscripcion> lista = new ArrayList();
         MateriaData md = new MateriaData();
         AlumnoData ad = new AlumnoData();
         try {
             
             
-            String sql = "SELECT * FROM inscripcion";
+            String sql = "SELECT * FROM inscripcion WHERE idMateria = ?";
             
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idMateria);
             
             ResultSet rs = ps.executeQuery();
             

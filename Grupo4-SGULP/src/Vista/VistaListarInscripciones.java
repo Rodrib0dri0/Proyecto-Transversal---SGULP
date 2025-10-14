@@ -23,6 +23,7 @@ public class VistaListarInscripciones extends javax.swing.JInternalFrame {
         initComponents();
         cargarLista();
         armarCabecera();
+        cargarTabla();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -35,7 +36,6 @@ public class VistaListarInscripciones extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTTable = new javax.swing.JTable();
 
-        jCAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
         jCAlumno.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCAlumnoItemStateChanged(evt);
