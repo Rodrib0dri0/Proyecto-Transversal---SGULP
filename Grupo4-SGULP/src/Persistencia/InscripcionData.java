@@ -171,12 +171,14 @@ public class InscripcionData {
             while (rs.next()) {
                 int id = rs.getInt("idInscripto");
                 int idMate = rs.getInt("idMateria");
+                double nota = rs.getDouble("nota");
                 Materia mate = md.buscarMateria(idMate);
                 int idAlu = rs.getInt("idAlumno");
                 Alumno alu = ad.buscarAlumno(idAlu);
                 int año = rs.getInt("añoCursada");
 
                 Inscripcion ins = new Inscripcion(alu, mate, año);
+                ins.setNota(nota);
                 ins.setIdInscripto(id);
                 lista.add(ins);
             }
