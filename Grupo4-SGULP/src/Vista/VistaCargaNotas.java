@@ -10,7 +10,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class VistaCargaNotas extends javax.swing.JInternalFrame {
 
-    private DefaultTableModel modelo = new DefaultTableModel();
+    private DefaultTableModel modelo = new DefaultTableModel(){
+        public boolean isCellEditable(int row, int column){
+            return column == 2;
+        }
+    };
     
     MateriaData md = new MateriaData();
     InscripcionData insD = new InscripcionData();
@@ -62,6 +66,14 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTTableKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTTableKeyReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTTable);
 
         jCMateria.addItemListener(new java.awt.event.ItemListener() {
@@ -82,17 +94,18 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jCMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(198, 198, 198))
+                .addGap(180, 180, 180))
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 72, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(191, 191, 191)
-                .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(191, 191, 191)
+                        .addComponent(jLabel7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,8 +118,9 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,6 +130,26 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         cargarTabla();
     }//GEN-LAST:event_jCMateriaItemStateChanged
+
+    private void jTTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTableKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTTableKeyPressed
+
+    private void jTTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTableKeyReleased
+        // TODO add your handling code here:         
+            int fila = jTTable.getSelectedRow();
+            int colu = jTTable.getSelectedColumn();
+            
+            if(fila != -1 && colu == 2){
+                int idAlu = Integer.parseInt(jTTable.getValueAt(fila, 0).toString());
+                Materia mate = buscarMateria(jCMateria.getSelectedItem().toString());
+                double nota = Double.parseDouble(jTTable.getValueAt(fila, 2).toString());
+                
+                insD.cargarNota(idAlu, mate.getIdMateria(), nota);
+                
+        }
+    }//GEN-LAST:event_jTTableKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

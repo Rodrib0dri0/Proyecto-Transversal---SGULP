@@ -34,7 +34,7 @@ public class InscripcionData {
             int registro = ps.executeUpdate();
 
             if (registro > 0) {
-                JOptionPane.showMessageDialog(null, "Alumno guardado correctamente!");
+                JOptionPane.showMessageDialog(null, "Alumno inscripto correctamente!");
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo guardar al alumno.");
             }
@@ -119,69 +119,93 @@ public class InscripcionData {
         }
         return mates;
     }
-    
-    public List<Inscripcion> cargarInscripcionesDeMateria(int idMateria){
+
+    public List<Inscripcion> cargarInscripcionesDeMateria(int idMateria) {
         List<Inscripcion> lista = new ArrayList();
         MateriaData md = new MateriaData();
         AlumnoData ad = new AlumnoData();
         try {
-            
-            
+
             String sql = "SELECT * FROM inscripcion WHERE idMateria = ?";
-            
+
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idMateria);
-            
+
             ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()){
-            int id = rs.getInt("idInscripto");
-            int idMate = rs.getInt("idMateria");
-            Materia mate = md.buscarMateria(idMate);
-            int idAlu = rs.getInt("idAlumno");
-            Alumno alu = ad.buscarAlumno(idAlu);
-            int año = rs.getInt("añoCursada");
-            
-            Inscripcion ins = new Inscripcion(alu,mate,año);
-            ins.setIdInscripto(id);
-            lista.add(ins);
-        }
+
+            while (rs.next()) {
+                int id = rs.getInt("idInscripto");
+                double nota = rs.getDouble("nota");
+                int idMate = rs.getInt("idMateria");
+                Materia mate = md.buscarMateria(idMate);
+                int idAlu = rs.getInt("idAlumno");
+                Alumno alu = ad.buscarAlumno(idAlu);
+                int año = rs.getInt("añoCursada");
+
+                Inscripcion ins = new Inscripcion(alu, mate, año);
+                ins.setNota(nota);
+                
+                ins.setIdInscripto(id);
+                lista.add(ins);
+            }
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Error al cargar.");
+            JOptionPane.showMessageDialog(null, "Error al cargar.");
         }
         return lista;
     }
-    
-    public List<Inscripcion> cargarInscripcionesDeAlumno(int idA){
+
+    public List<Inscripcion> cargarInscripcionesDeAlumno(int idA) {
         List<Inscripcion> lista = new ArrayList();
         MateriaData md = new MateriaData();
         AlumnoData ad = new AlumnoData();
         try {
-            
-            
+
             String sql = "SELECT * FROM inscripcion WHERE idAlumno = ?";
-            
+
             PreparedStatement ps = con.prepareStatement(sql);
-            
+
             ps.setInt(1, idA);
-            
+
             ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()){
-            int id = rs.getInt("idInscripto");
-            int idMate = rs.getInt("idMateria");
-            Materia mate = md.buscarMateria(idMate);
-            int idAlu = rs.getInt("idAlumno");
-            Alumno alu = ad.buscarAlumno(idAlu);
-            int año = rs.getInt("añoCursada");
-            
-            Inscripcion ins = new Inscripcion(alu,mate,año);
-            ins.setIdInscripto(id);
-            lista.add(ins);
-        }
+
+            while (rs.next()) {
+                int id = rs.getInt("idInscripto");
+                int idMate = rs.getInt("idMateria");
+                Materia mate = md.buscarMateria(idMate);
+                int idAlu = rs.getInt("idAlumno");
+                Alumno alu = ad.buscarAlumno(idAlu);
+                int año = rs.getInt("añoCursada");
+
+                Inscripcion ins = new Inscripcion(alu, mate, año);
+                ins.setIdInscripto(id);
+                lista.add(ins);
+            }
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Error al cargar.");
+            JOptionPane.showMessageDialog(null, "Error al cargar.");
         }
         return lista;
+    }
+
+    public void cargarNota(int idAlu, int idMate, double nota) {
+
+        try {
+            String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? AND idMateria = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDouble(1, nota);
+            ps.setInt(2, idAlu);
+            ps.setInt(3, idMate);
+            
+            int registro = ps.executeUpdate();
+
+            if (registro > 0) {
+                JOptionPane.showMessageDialog(null, "Nota subida correctamente!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al subir nota.");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al subir nota.");
+        }
     }
 }
