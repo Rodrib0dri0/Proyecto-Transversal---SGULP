@@ -137,7 +137,8 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTTableKeyPressed
 
     private void jTTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTableKeyReleased
-        // TODO add your handling code here:         
+        // TODO add your handling code here:
+        try{
             int fila = jTTable.getSelectedRow();
             int colu = jTTable.getSelectedColumn();
             
@@ -148,6 +149,9 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
                 
                 insD.cargarNota(idAlu, mate.getIdMateria(), nota);
                 
+        }
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "La nota debe ser un número.");
         }
     }//GEN-LAST:event_jTTableKeyReleased
 
